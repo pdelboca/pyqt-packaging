@@ -11,7 +11,7 @@ cp -r "dist/HelloWorld.app" "dist/dmg"
 
 # Create the dmg file
 create-dmg \
-  --volname "HelloWorld" \ # Name for the disk image (DMG) itself
+  --volname "HelloWorld" \
   --volicon "icons/icon.icns" \
   --window-pos 200 120 \
   --window-size 800 400 \
