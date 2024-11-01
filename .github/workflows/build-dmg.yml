@@ -18,7 +18,7 @@ jobs:
         run: pip3 install pyqt6 pyinstaller
       - name: Build the project
         run: |
-          pyinstaller --onefile app.py
+          pyinstaller --onefile --name HelloWorld app.py
       - name: Codesign executable
         env:
           MAC_P12_BASE64_CERTIFICATE: ${{ secrets.MAC_P12_BASE64_CERTIFICATE }}
