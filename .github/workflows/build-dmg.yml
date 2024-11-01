@@ -22,7 +22,7 @@ jobs:
         env:
           MAC_P12_BASE64_CERTIFICATE: ${{ secrets.MAC_P12_BASE64_CERTIFICATE }}
           MAC_P12_PASSWORD: ${{ secrets.MAC_P12_PASSWORD }}
-          MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
+          MAC_TEAM_ID: ${{ secrets.MAC_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           echo $MAC_P12_BASE64_CERTIFICATE | base64 --decode > certificate.p12
@@ -31,8 +31,7 @@ jobs:
           security unlock-keychain -p $KEYCHAINi_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P $MAC_P12_PASSWORD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codedign: -s -k $KEYCHAIN_PASSWORD build.keychain
-          security find-identity
-          /usr/bin/codesign --force --deep -s $MAC_DEVELOPER_ID dist/dmg/HelloWorld.app
+          /usr/bin/codesign --force --deep -s $MAC_TEAM_ID dist/dmg/HelloWorld.app
       - name: Install create-dmg
         run: |
           echo "Install create-dmg"
