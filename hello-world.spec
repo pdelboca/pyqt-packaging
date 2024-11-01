@@ -44,6 +44,6 @@ coll = COLLECT(exe,
                name='hello-world')
 
 app = BUNDLE(coll,
-             name='Hello World.app',
+             name='HelloWorld.app',
              icon='icons/icon.icns',
              bundle_identifier=None)

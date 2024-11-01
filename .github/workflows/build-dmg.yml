@@ -1,0 +1,50 @@
+name: Build DMG
+'on':
+  push:
+    branches:
+      - "main"
+
+jobs:
+  on-push-main:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install python dependencies
+        run: pip3 install pyqt6 pyinstaller
+      - name: Build the project
+        run: pyinstaller hello-world.spec
+      - name: Codesign executable
+        env:
+          MAC_P12_BASE64_CERTIFICATE: ${{ secrets.MAC_P12_BASE64_CERTIFICATE }}
+          MAC_P12_PASSWORD: ${{ secrets.MAC_P12_PASSWORD }}
+          MAC_DEVELOPER_ID: ${{ secrets.MAC_DEVELOPER_ID }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo $MAC_P12_BASE64_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p $KEYCHAIN_PASSWORD build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p $KEYCHAINi_PASSWORD build.keychain
+          security import certificate.p12 -k build.keychain -p $MAC_P12_PASSWORD -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codedign: -s -k $KEYCHAIN_PASSWORD build.keychain
+          security find-identity
+          /usr/bin/codesign --force --deep -s $MAC_DEVELOPER_ID dist/dmg/HelloWorld.app
+      - name: Install create-dmg
+        run: |
+          echo "Install create-dmg"
+          brew install create-dmg
+      - name: Build the DMG File
+        run: |
+          echo "Build the DMG file"
+          ./build-dmg.sh
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: distribution-files-macos
+          path: |
+            HelloWorld.dmg
+          retention-days: 14
