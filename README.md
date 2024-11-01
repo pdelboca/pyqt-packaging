@@ -10,7 +10,7 @@ For linux we are using [fpm](https://github.com/jordansissel/fpm). Follow the do
 
 ```bash
 # Inside a virtual environment with pyinstaller and pyqt6 installed
-pyinstaller hello-world.spec
+pyinstaller hello-world-linux.spec
 ./package.sh
 fpm -C package -s dir -t deb -n "hello-world" -v 0.1.0 -p hello-world.deb
 ```

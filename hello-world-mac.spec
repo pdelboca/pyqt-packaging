@@ -1,7 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
-# This file was generated in a macos machine on Github Actions by executing
-# the following command:
+# This file was generated in a macos machine on Github Actions by executing the following command:
 # pyinstaller --onefile --name HelloWorld.app --add-data "icons:icons" --icon icons/icon.icns --windowed app.py
+# 
+# MacOS requires a --onefile execution or else notarize process will fail.
 
 a = Analysis(
     ['app.py'],
