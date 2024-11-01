@@ -47,7 +47,7 @@ jobs:
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
           MAC_APP_SPECIFIC_PASSWORD: ${{ secrets.MAC_APP_SPECIFIC_PASSWORD }}
         run: |
-          xcrun notarytool submit --team-id $MAC_TEAM_ID --apple-id $MAC_APPLE_ID --password $MAC_APP_SPECIFIC_PASSWORD --wait HelloWorld.dmg
+          xcrun notarytool submit --verbose --team-id $MAC_TEAM_ID --apple-id $MAC_APPLE_ID --password $MAC_APP_SPECIFIC_PASSWORD --wait HelloWorld.dmg
       - name: Staple the file
         run: |
           xcrun stapler staple HelloWorld.dmg
