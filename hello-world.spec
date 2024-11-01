@@ -1,4 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
+# This file was generated in a macos machine on Github Actions by executing
+# the following command:
+# pyinstaller --onefile --name HelloWorld.app --add-data "icons:icons" --icon icons/icon.icns --windowed app.py
 
 a = Analysis(
     ['app.py'],
@@ -28,15 +31,17 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['icons/icon.icns'],
 )
-
-app = BUNDLE(coll,
-             name='HelloWorld.app',
-             icon='icons/icon.icns',
-             bundle_identifier=None)
+app = BUNDLE(
+    exe,
+    name='HelloWorld.app.app',
+    icon='icons/icon.icns',
+    bundle_identifier=None,
+)
