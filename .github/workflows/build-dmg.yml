@@ -18,7 +18,7 @@ jobs:
         run: pip3 install pyqt6 pyinstaller
       - name: Build the project
         run: |
-          pyinstaller hello-world.spec
+          pyinstaller --onefile app.py
       - name: Codesign executable
         env:
           MAC_P12_BASE64_CERTIFICATE: ${{ secrets.MAC_P12_BASE64_CERTIFICATE }}
@@ -32,7 +32,7 @@ jobs:
           security unlock-keychain -p $KEYCHAINi_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P $MAC_P12_PASSWORD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codedign: -s -k $KEYCHAIN_PASSWORD build.keychain
-          /usr/bin/codesign --force --deep -s $MAC_TEAM_ID dist/HelloWorld.app --entitlements entitlements.plist
+          /usr/bin/codesign --force --deep --options=runtime --entitlements entitlements.plist -s $MAC_TEAM_ID --timestamp dist/HelloWorld.app 
       - name: Install create-dmg
         run: |
           echo "Install create-dmg"
@@ -47,7 +47,7 @@ jobs:
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
           MAC_APP_SPECIFIC_PASSWORD: ${{ secrets.MAC_APP_SPECIFIC_PASSWORD }}
         run: |
-          xcrun notarytool submit --verbose --team-id $MAC_TEAM_ID --apple-id $MAC_APPLE_ID --password $MAC_APP_SPECIFIC_PASSWORD --wait HelloWorld.dmg
+          xcrun notarytool submit --verbose --team-id $MAC_TEAM_ID --apple-id $MAC_APPLE_ID --password $MAC_APP_SPECIFIC_PASSWORD --primary-bundle-id "me.pdelboca.helloworld" --wait HelloWorld.dmg
       - name: Staple the file
         run: |
           xcrun stapler staple HelloWorld.dmg
