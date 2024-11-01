@@ -18,7 +18,7 @@ jobs:
         run: pip3 install pyqt6 pyinstaller
       - name: Build the project
         run: |
-          pyinstaller --onefile --name HelloWorld.app --add-data "icons:icons" --icon --windowed icons/icon.icns app.py
+          pyinstaller --onefile --name HelloWorld.app --add-data "icons:icons" --icon icons/icon.icns --windowed app.py
           cat HelloWorld.app.spec
       - name: Codesign executable
         env:
