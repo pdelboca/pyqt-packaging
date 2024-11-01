@@ -17,7 +17,9 @@ jobs:
       - name: Install python dependencies
         run: pip3 install pyqt6 pyinstaller
       - name: Build the project
-        run: pyinstaller hello-world.spec
+        run: |
+          pyinstaller hello-world.spec
+          ls -R dist
       - name: Codesign executable
         env:
           MAC_P12_BASE64_CERTIFICATE: ${{ secrets.MAC_P12_BASE64_CERTIFICATE }}
@@ -31,7 +33,7 @@ jobs:
           security unlock-keychain -p $KEYCHAINi_PASSWORD build.keychain
           security import certificate.p12 -k build.keychain -P $MAC_P12_PASSWORD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codedign: -s -k $KEYCHAIN_PASSWORD build.keychain
-          /usr/bin/codesign --force --deep -s $MAC_TEAM_ID dist/dmg/HelloWorld.app
+          /usr/bin/codesign --force --deep -s $MAC_TEAM_ID dist/HelloWorld.app
       - name: Install create-dmg
         run: |
           echo "Install create-dmg"
