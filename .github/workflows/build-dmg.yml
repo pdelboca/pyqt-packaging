@@ -19,7 +19,6 @@ jobs:
       - name: Build the project
         run: |
           pyinstaller hello-world.spec
-          ls -R dist
       - name: Codesign executable
         env:
           MAC_P12_BASE64_CERTIFICATE: ${{ secrets.MAC_P12_BASE64_CERTIFICATE }}
