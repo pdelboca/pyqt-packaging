@@ -41,6 +41,12 @@ jobs:
         run: |
           echo "Build the DMG file"
           ./build-dmg.sh
+      - name: Notarize the DMG FIle
+        run: |
+          xcrun notarytool submit --team-id $MAC_TEAM_ID --apple-id $MAC_APPLE_ID --password $MAC_APP_SPECIFIC_PASSWORD --wait HelloWorld.app
+      - name: Staple the file
+        run: |
+          xcrun stapler staple HelloWorld.dmg
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4
         with:
