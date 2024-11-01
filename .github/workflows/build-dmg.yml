@@ -42,6 +42,10 @@ jobs:
           echo "Build the DMG file"
           ./build-dmg.sh
       - name: Notarize the DMG FIle
+        env:
+          MAC_TEAM_ID: ${{ secrets.MAC_TEAM_ID }}
+          MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
+          MAC_APP_SPECIFIC_PASSWORD: ${{ secrets.MAC_APP_SPECIFIC_PASSWORD }}
         run: |
           xcrun notarytool submit --team-id $MAC_TEAM_ID --apple-id $MAC_APPLE_ID --password $MAC_APP_SPECIFIC_PASSWORD --wait HelloWorld.app
       - name: Staple the file
