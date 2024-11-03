@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['app.py'],
+    ['../../src/app.py'],
     pathex=[],
     binaries=[],
-    datas=[('icons', 'icons')],
+    datas=[('../../src/media/', 'media')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

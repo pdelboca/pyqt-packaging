@@ -37,14 +37,14 @@ class MainWindow(QMainWindow):
 
         button_close = QPushButton("Close")
         button_close.setIcon(
-            QIcon(os.path.join(basedir, "icons", "lightning.svg"))
+            QIcon(os.path.join(basedir, "media/icons", "lightning.svg"))
         )
         button_close.pressed.connect(self.close)
         layout.addWidget(button_close)
 
         button_maximize = QPushButton("Maximize")
         button_maximize.setIcon(
-            QIcon(os.path.join(basedir, "icons", "uparrow.svg"))
+            QIcon(os.path.join(basedir, "media/icons", "uparrow.svg"))
         )
         button_maximize.pressed.connect(self.showMaximized)
         layout.addWidget(button_maximize)
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
 
 
 app = QApplication(sys.argv)
-app.setWindowIcon(QIcon(os.path.join(basedir, "icons", "icon.svg")))
+app.setWindowIcon(QIcon(os.path.join(basedir, "media/icons", "icon.svg")))
 window = MainWindow()
 window.show()
 app.exec()
