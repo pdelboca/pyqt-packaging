@@ -5,10 +5,10 @@
 # MacOS requires a --onefile execution or else notarize process will fail.
 
 a = Analysis(
-    ['app.py'],
+    ['../../src/app.py'],
     pathex=[],
     binaries=[],
-    datas=[('icons', 'icons')],
+    datas=[('../../src/media', 'media')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -38,11 +38,11 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icons/icon.icns'],
+    icon=['../../src/media/icons/icon.icns'],
 )
 app = BUNDLE(
     exe,
     name='HelloWorld.app.app',
-    icon='icons/icon.icns',
+    icon='../../src/media/icons/icon.icns',
     bundle_identifier=None,
 )
