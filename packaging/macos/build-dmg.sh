@@ -9,7 +9,7 @@ test -d "dist/dmg" && rm -rf "dist/dmg"
 # Build the project
 test -d build && rm -r build
 test -d dist && rm -r dist
-pyinstaller ./packaging/macos/hello-world-linux.spec
+pyinstaller ./packaging/macos/hello-world-macos.spec
 
 # Codesign the executable created by pyinstaller
 echo "Codesigning the executable created by PyInstaller"
@@ -19,7 +19,7 @@ security default-keychain -s build.keychain
 security unlock-keychain -p $KEYCHAIN_PASSWORD build.keychain
 security import certificate.p12 -k build.keychain -P $MAC_P12_PASSWORD -T /usr/bin/codesign
 security set-key-partition-list -S apple-tool:,apple:,codedign: -s -k $KEYCHAIN_PASSWORD build.keychain
-/usr/bin/codesign --force --deep --options=runtime --entitlements entitlements.plist -s $MAC_TEAM_ID --timestamp dist/HelloWorld.app
+/usr/bin/codesign --force --deep --options=runtime --entitlements ./packaging/macos/entitlements.plist -s $MAC_TEAM_ID --timestamp dist/HelloWorld.app
 
 # Create dmg folder and copy our signed executable
 mkdir -p dist/dmg

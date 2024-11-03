@@ -27,7 +27,7 @@ jobs:
           MAC_APPLE_ID: ${{ secrets.MAC_APPLE_ID }}
           MAC_APP_SPECIFIC_PASSWORD: ${{ secrets.MAC_APP_SPECIFIC_PASSWORD }}
         run: |
-          ./build-dmg.sh
+          ./packaging/macos/build-dmg.sh
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4
         with:
