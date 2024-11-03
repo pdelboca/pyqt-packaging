@@ -1,6 +1,24 @@
 #!/bin/sh
-# File to create the DMG file using create-dmg tool.
+# File to create the DMG file using create-dmg tool and notarize it.
 #
+# This is a bash script that I created after reading several sources and tutorials.
+# It is intended to work on Github Actions and so it might not be the most optimized
+# workflow for executing it locally (because of the secrets required for code sign
+# and notarizing)
+#
+# This script expects 6 secrets:
+#  - MAC_P12_BASE64_CERTIFICATE: A base64 encoded p12 certificate.
+#  - MAC_P12_PASSWORD: The password used to encrypt the p12 certificate
+#  - KEYCHAIN_PASSWORD: This is to create the temporary keychain in the Github Action runner.
+#  - MAC_TEAM_ID: This is the ID of the team of your Apple Developer Account (Something like S1235Q75WSA)
+#  - MAC_APPLE_ID: This is the ID of your Apple Developer Account (usually your email)
+#  - MAC_APP_SPECIFIC_PASSWORD: The Application Specific Password created in your Developer Account.
+#
+# Context and materials that inspired this script:
+#  - https://www.pythonguis.com/tutorials/packaging-pyqt6-applications-pyinstaller-macos-dmg/
+#  - https://medium.com/flutter-community/build-sign-and-deliver-flutter-macos-desktop-applications-on-github-actions-5d9b69b0469c
+#  - https://defn.io/2023/09/22/distributing-mac-apps-with-github-actions/
+#  - https://gist.github.com/txoof/0636835d3cc65245c6288b2374799c43
 #
 # Cleanup old dmg files
 test -f HelloWorld.dmg && rm HelloWorld.dmg
