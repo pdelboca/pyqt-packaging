@@ -29,7 +29,7 @@ cp "dist/HelloWorld.app" "dist/dmg"
 echo "Creating the DMG file"
 create-dmg \
   --volname "HelloWorld" \
-  --volicon ".src/media/icons/icon.icns" \
+  --volicon "./src/media/icons/icon.icns" \
   --window-pos 200 120 \
   --window-size 800 400 \
   --icon-size 100 \
