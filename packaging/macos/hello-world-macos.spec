@@ -42,7 +42,7 @@ exe = EXE(
 )
 app = BUNDLE(
     exe,
-    name='HelloWorld.app.app',
+    name='HelloWorld.app',
     icon='../../src/media/icons/icon.icns',
     bundle_identifier=None,
 )
