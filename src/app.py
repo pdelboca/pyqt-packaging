@@ -55,8 +55,9 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
 
 
-app = QApplication(sys.argv)
-app.setWindowIcon(QIcon(os.path.join(basedir, "media/icons", "icon.svg")))
-window = MainWindow()
-window.show()
-app.exec()
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(os.path.join(basedir, "media/icons", "icon.svg")))
+    window = MainWindow()
+    window.show()
+    app.exec()
